@@ -6,22 +6,23 @@ Our project aims to tackle one of the world's greatest mysteries. What's for din
 
 ## Getting started
 
-Firsly, clone the repository into your local machine
+Firstly, clone the repository into your local machine
 
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+
+For further details, see /frontend/README.md
+
+However, if you wish to run the app from your machine, there are a few extra steps.
 This app requires [Node.js](https://nodejs.org/en) to be installed. Follow the installation instructions on the website to install Node.js, then follow the steps below:
 * Once Node.js is installed, navigate to the 'frontend' folder on the repository.
-* Run the command `npm install`.
+* Run the command `npm install` to install the necessary packages/dependencies.
 
 Now that next.js is installed correctly, we can run the application in 2 ways.
 * To run the development server, run the command `npm run dev` 
 * To run in production mode, run the command `npm build` followed by `npm start`
 note: Development mode is recommended to be used during development as it is useful for debugging, while production mode is optimised for performance.
 
-Finally, copy and paste the localhost server link from the terminal into your web browser 
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-For further details, see /frontend/README.md
+Finally, copy and paste the localhost server link from the terminal into your web browser to view the application.
 
 
 # Built with
