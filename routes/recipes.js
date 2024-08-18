@@ -2,29 +2,79 @@ const express = require('express')
 const Recipe = require('../models/recipeModel')
 const { generateRecipe } = require('../server/api/gemini/client');
 const { getImageByTitle } = require('../server/api/pexels/client');
+const db = require('../server/db');
 
 
 const router = express.Router()
 
 // GET all recipes
-router.get('/', (req, res) => {
-    res.json({ message: 'Get all recipes'})
-})
+router.get('/', async (req, res) => {
+    try {
+        const db = req.app.locals.db;
+        const recipes = await db.collection('recipes').find().toArray();
+        res.json(recipes);
+    } catch (error) {
+        res.status(500).json({ error: 'Failed to get recipes' });
+        console.error(error);
+    }
+});
+
 
 // GET a specific recipe
-router.get('/:id', (req, res) => {
-    res.json({ message: 'Get a specific recipe'})
-})
+router.get('/:id', async (req, res) => {
+    try {
+        const db = req.app.locals.db;
+        const recipe = await db.collection('recipes').findOne({ _id: new ObjectId(req.params.id) });
+        if (!recipe) {
+            return res.status(404).json({ error: 'Recipe not found' });
+        }
+        res.json(recipe);
+    } catch (error) {
+        res.status(500).json({ error: 'Failed to get recipe' });
+        console.error(error);
+    }
+});
 
 // POST a new recipe
 router.post('/', async (req, res) => {
-    res.json({ message: 'Post a new recipe' })
-})
+    try {
+        const db = req.app.locals.db;
+        const recipe = req.body;
+        const result = await db.collection('recipes').insertOne(recipe);
+        console.log('Inserted recipe:'), result.ops
+        res.status(201).json(result.ops[0]);  // Respond with the inserted document
+    } catch (error) {
+        console.error('Failed to insert recipe:', error);
+        res.status(500).json({ error: 'Failed to insert recipe' });
+    }
+});
 
 // DELETE a specific recipe
-router.delete('/:id', (req, res) => {
-    res.json({ message: 'Delete a recipe'})
-})
+router.delete('/:id', async (req, res) => {
+    try {
+        const db = req.app.locals.db;
+        const result = await db.collection('recipes').deleteOne({ _id: new ObjectId(req.params.id) });
+        if (result.deletedCount === 0) {
+            return res.status(404).json({ error: 'Recipe not found' });
+        }
+        res.json({ message: 'Recipe deleted' });
+    } catch (error) {
+        res.status(500).json({ error: 'Failed to delete recipe' });
+        console.error(error);
+    }
+});
+
+// DELETE all recipes
+router.delete('/', async (req, res) => {
+    try {
+        const db = req.app.locals.db;
+        await db.collection('recipes').deleteMany();
+        res.json({ message: 'All recipes deleted' });
+    } catch (error) {
+        res.status(500).json({ error: 'Failed to delete recipes' });
+        console.error(error);
+    }
+});
 
 // UPDATE a specific recipe
 router.patch('/:id', (req, res) => {
