@@ -41,6 +41,7 @@ router.post('/', async (req, res) => {
         const db = req.app.locals.db;
         const recipe = req.body;
         const result = await (db.collection('recipes')).insertOne(recipe);
+        res.json(result.ops[0]);
     } catch (error) {
         console.error('Failed to insert recipe:', error);
         res.status(500).json({ error: 'Failed to insert recipe' });
