@@ -40,9 +40,7 @@ router.post('/', async (req, res) => {
     try {
         const db = req.app.locals.db;
         const recipe = req.body;
-        const result = await db.collection('recipes').insertOne(recipe);
-        console.log('Inserted recipe:'), result.ops
-        res.status(201).json(result.ops[0]);  // Respond with the inserted document
+        const result = await (db.collection('recipes')).insertOne(recipe);
     } catch (error) {
         console.error('Failed to insert recipe:', error);
         res.status(500).json({ error: 'Failed to insert recipe' });
