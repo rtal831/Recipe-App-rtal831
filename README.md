@@ -6,39 +6,30 @@ Our project aims to tackle one of the world's greatest mysteries. What's for din
 
 ## Getting started
 
-Firstly, clone the repository into your local machine
+To correctly set up the application for viewing/contributions, follow the steps below.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+1. Make a fork of the repository.
+2. Clone the repository into your local machine.
+3. Optionally, run the command `git remote add upstream https://github.com/SOFTENG-310-Group-7/Recipe-App/` to push and pull changes to/from the main repository. Keep in mind that all changes must be approved via a code review and pull request, as seen in [CONTRIBUTING.md](CONTRIBUTING.md) - *'How to Submit a Pull Request'*.
 
-For further details, see /frontend/README.md
+From here, the easiest way to deploy the app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-However, if you wish to run the app from your machine, there are a few extra steps.
-This app requires [Node.js](https://nodejs.org/en) to be installed. Follow the installation instructions on the website to install Node.js, then follow the steps below:
-* Once Node.js is installed, navigate to the 'frontend' folder on the repository.
-* Run the command `npm install` to install the necessary packages/dependencies.
-
-Now that next.js is installed correctly, we can run the application in 2 ways.
-* To run the development server, run the command `npm run dev` 
-* To run in production mode, run the command `npm build` followed by `npm start`
-note: Development mode is recommended to be used during development as it is useful for debugging, while production mode is optimised for performance.
-
-Finally, copy and paste the localhost server link from the terminal into your web browser to view the application.
-
+Please refer to [/frontend/README.md](/frontend/README.md) for further details on deploying the app.
 
 # Built with
 
 ## Tech stack
 
-**Frontend** - React and Next.js framework for the user interface.
+**Frontend** - The front end was developed using a React and Next.js framework for the user interface.
 
-**Backend** - Using Node.js with Express for backend logic such as authentication, storing user
+**Backend** - Node.js with Express is used for backend logic such as authentication, storing user
 data, and integrating with external APIs.
 
-**Database** - MongoDB to store user and recipe data.
+**Database** - MongoDB is used to store user and recipe data.
 
-**Auth** - Auth0 for creating accounts.
+**Auth** - Auth0 is used for creating accounts.
 
-**APIs** - Gemini API for retrieving AI generated recipes, Pexels API for generating images.
+**APIs** - Gemini API is used for retrieving AI generated recipes and Pexels API is used for generating images.
 
 # Usage
 
@@ -54,8 +45,20 @@ This project is licensed under the MIT License. For more details, please refer t
 
 ## How to get help
 
+For project-specific help, please email us at [softeng310group7@gmail.com](https://mail.google.com/mail/u/0/#inbox?compose=GTvVlcSDbhDtHkcglzPlSkQPbjKvpHgGKKKrHSMVnGrLPcptXFXRzSNbfTRwZMPmBKFQtpxBtzwpg). For git related help, please refer to the [github support](https://support.github.com/) 
+page. For help with other frameworks, please visit the relevant website linked in [Acknowledgments](#acknowledgmenets).
 
----
 ## Acknowledgments
+We would like to acknowledge the resources we utilised for this project:
 
-
+- [React](https://react.dev/)
+- [Next.js](https://nextjs.org/)
+- [Node.js with express](https://expressjs.com/)
+- [MongoDB](https://www.mongodb.com/)
+- [Auth0](https://auth0.com/)
+- [Gemini API](https://ai.google.dev/)
+- [Pexels API](https://www.pexels.com/api/)
+- [Vercel Platform](https://vercel.com/)
+- [Chooase a license](https://choosealicense.com/)
+- [Contributor Covenant](https://www.contributor-covenant.org)
+- [ReadME template](https://github.com/othneildrew/Best-README-Template)

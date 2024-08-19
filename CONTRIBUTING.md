@@ -59,7 +59,7 @@ To get started with development:
 ## Running Tests
 
 To ensure the quality of your contributions:
-1. Run the test suite with `npm test` or the appropriate command.
+1. Run the test suite with `npm test`.
 2. Make sure all tests pass before submitting your pull request.
 3. Add new tests for any code you write to ensure future stability.
 
