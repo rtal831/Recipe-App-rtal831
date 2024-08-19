@@ -1,15 +1,28 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const mongoose = require('mongoose');
 const dotenv = require('dotenv');
-const recipeRoutes = require('../routes/recipes');
+const connectDB = require('./db');
 
 const app = express();
 dotenv.config({ path: './config.env' });
 
 app.use(bodyParser.json());
 
-// Routes
+// Connect to the database and start the server
+const startServer = async () => {
+    try {
+        const db = await connectDB();
+        app.locals.db = db;
+        app.listen(5000, () => console.log('Server is running on port 5000.'));
+    } catch (error) {
+        console.error('Failed to start the server', error);
+        process.exit(1); // Exit the process with failure
+    }
+};
+
+startServer();
+const recipeModel = require('../models/recipeModel');
+const recipeRoutes = require('../routes/recipes');
 app.use('/api/recipes', recipeRoutes);
 
 let ingredients = [];
@@ -33,12 +46,5 @@ app.post("/api/reset", (req, res) => {
     ingredients = [];
     res.json({ ing: ingredients });
 });
-
-// Connect to MongoDB and start the server
-mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
-    .then(() => {
-        app.listen(5000, () => console.log('Connected to db and server is running on port 5000.'));
-    })
-    .catch((error) => console.error('Could not connect to MongoDB...', error));
 
 module.exports = app;
