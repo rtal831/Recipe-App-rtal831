@@ -1,12 +1,17 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const dotenv = require('dotenv');
+const cors = require('cors');
+const recipeRoutes = require('../routes/recipes');
 const connectDB = require('./db');
 
-const app = express();
+const app = express(); 
 dotenv.config({ path: './config.env' });
 
+app.use(cors());
 app.use(bodyParser.json());
+
+app.use('/api/recipes', recipeRoutes);
 
 // Connect to the database and start the server
 const startServer = async () => {
@@ -16,14 +21,11 @@ const startServer = async () => {
         app.listen(5000, () => console.log('Server is running on port 5000.'));
     } catch (error) {
         console.error('Failed to start the server', error);
-        process.exit(1); // Exit the process with failure
+        process.exit(1);
     }
 };
 
 startServer();
-const recipeModel = require('../models/recipeModel');
-const recipeRoutes = require('../routes/recipes');
-app.use('/api/recipes', recipeRoutes);
 
 let ingredients = [];
 
