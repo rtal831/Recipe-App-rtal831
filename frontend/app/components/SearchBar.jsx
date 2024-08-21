@@ -12,7 +12,6 @@ export default function SearchBar() {
   const [cuisine, setCuisine] = useState('Any');
   const [loading, setLoading] = useState(false);
   const [inputError, setInputError] = useState(false); // State to track input error
-
   const router = useRouter();
 
   const handleInputChange = (e) => {
@@ -45,11 +44,14 @@ export default function SearchBar() {
     setLoading(true);
 
     try {
-      // clear generated recipes in backend
+
+      // call gemini to get recipes
+      const data = await generateRecipe(ingredients, selectedCuisine, dietaryPreferences, selectedMealType, selectedServingSize);
+
+      // clear generated recipes in backend | have to call this after the api call otherwise no recipe data is shown
       await fetch('http://localhost:5000/api/server/generated-recipes', {
         method: 'DELETE',
       });
-      const data = await generateRecipe(ingredients, selectedCuisine, dietaryPreferences, selectedMealType, selectedServingSize);
 
       // store generated recipes in backend
       const response = await fetch('http://localhost:5000/api/server/generated-recipes', {

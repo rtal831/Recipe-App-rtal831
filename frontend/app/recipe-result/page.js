@@ -1,6 +1,6 @@
 'use client';
 
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import { Card, Divider } from "@nextui-org/react";
 import RecipeImage from './RecipeImage';
 import Ingredients from './Ingredients';
@@ -8,23 +8,28 @@ import RecipeHeader from './RecipeHeader';
 import RecipeInstructions from './RecipeInstructions';
 import { useRouter, useSearchParams } from 'next/navigation';
 
-
 export default function RecipePage() {
     const [recipe, setRecipe] = useState(null);
     const searchParams = useSearchParams();
 
-    // use query params to get recipe
     useEffect(() => {
-        const recipeParam = searchParams.get('recipe');
+        const resultId = searchParams.get('result-id');
+        if (resultId) {
+            // Fetch the recipe by result-id
+            const fetchRecipe = async () => {
+                try {
+                    const response = await fetch(`http://localhost:5000/api/server/generated-recipes/${resultId}`);
+                    if (!response.ok) {
+                        throw new Error(`Error: ${response.statusText}`);
+                    }
+                    const recipeData = await response.json();
+                    setRecipe(recipeData);
+                } catch (error) {
+                    console.error("Failed to fetch recipe data:", error);
+                }
+            };
 
-        if (recipeParam) {
-            try {
-                const deserializedRecipe = JSON.parse(decodeURIComponent(recipeParam));
-                setRecipe(deserializedRecipe);
-                console.log(deserializedRecipe);
-            } catch (error) {
-                console.error("Failed to parse recipe data:", error);
-            }
+            fetchRecipe();
         }
     }, [searchParams]);
 
@@ -46,7 +51,7 @@ export default function RecipePage() {
                 <div style={styles.rightSide}>
                     <RecipeHeader title={recipe.title} onSave={handleSaveRecipe} />
                     <Divider />
-                    <RecipeInstructions instructions={recipe.instructions} cookingTime = {recipe.cookingTime} />
+                    <RecipeInstructions instructions={recipe.instructions} cookingTime={recipe.cookingTime} />
                 </div>
             </Card>
         </div>
