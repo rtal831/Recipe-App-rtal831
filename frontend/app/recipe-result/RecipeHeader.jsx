@@ -4,7 +4,7 @@ import { CardHeader, Image } from "@nextui-org/react";
 export default function RecipeHeader({ title, onSave }) {
     return (
         <CardHeader style={styles.recipeHeader}>
-            <h2 style={styles.recipeTitle}>{title}</h2>
+            <h2 className="text-4xl font-bold font-serif" style={styles.recipeTitle}>{title}</h2>
             <button style={styles.saveButton} onClick={onSave}>
                 <Image
                     src="/savebutton.png"

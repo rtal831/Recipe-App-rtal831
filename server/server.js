@@ -3,15 +3,17 @@ const bodyParser = require('body-parser');
 const dotenv = require('dotenv');
 const cors = require('cors');
 const recipeRoutes = require('../routes/recipes');
+const serverRoutes = require('../routes/server'); // Import the new routes file
 const connectDB = require('./db');
 
-const app = express(); 
+const app = express();
 dotenv.config({ path: './config.env' });
 
 app.use(cors());
 app.use(bodyParser.json());
 
 app.use('/api/recipes', recipeRoutes);
+app.use('/api/server', serverRoutes);
 
 // Connect to the database and start the server
 const startServer = async () => {
@@ -26,27 +28,5 @@ const startServer = async () => {
 };
 
 startServer();
-
-let ingredients = [];
-
-// Endpoint to retrieve ingredients
-app.get("/api", (req, res) => {
-    res.json({ ing: ingredients });
-});
-
-// Endpoint to add an ingredient
-app.post("/api/add", (req, res) => {
-    const { ingredient } = req.body;
-    if (ingredient) {
-        ingredients.push(ingredient);
-    }
-    res.json({ ing: ingredients });
-});
-
-// Endpoint to reset ingredients
-app.post("/api/reset", (req, res) => {
-    ingredients = [];
-    res.json({ ing: ingredients });
-});
 
 module.exports = app;

@@ -2,15 +2,19 @@ import React from 'react';
 import { Divider } from "@nextui-org/react";
 
 export default function Ingredients({ ingredients }) {
+    if (!Array.isArray(ingredients)) {
+        return <p>Error: Ingredients data is not available.</p>;
+    }
+
     return (
         <div style={styles.ingredientsContainer}>
             <h3 style={styles.ingredientsHeader}>Ingredients:</h3>
             <Divider />
             <div style={styles.ingredientsList}>
-                {ingredients.split('\n').filter(item => item.trim() !== '').map((ingredient, index) => (
+                {ingredients.map((ingredient, index) => (
                     <React.Fragment key={index}>
                         <small>{ingredient}</small>
-                        {index < ingredients.split('\n').length - 1 && <Divider />}
+                        {index < ingredients.length - 1 && <Divider />}
                     </React.Fragment>
                 ))}
             </div>

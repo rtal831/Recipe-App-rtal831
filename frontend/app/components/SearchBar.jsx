@@ -32,7 +32,6 @@ export default function SearchBar() {
     e.preventDefault();
 
     if (!query.trim()) {
-      // If input is empty, show error and stop submission
       setInputError(true);
       return;
     }
@@ -40,22 +39,39 @@ export default function SearchBar() {
     const ingredients = query;
     const selectedCuisine = cuisine;
     const selectedMealType = mealType;
-    const selectedServingSize = servingSize; 
+    const selectedServingSize = servingSize;
     const dietaryPreferences = 'none';
 
-    setLoading(true); // Set loading to true when the search starts
+    setLoading(true);
 
     try {
+      // clear generated recipes in backend
+      await fetch('http://localhost:5000/api/server/generated-recipes', {
+        method: 'DELETE',
+      });
       const data = await generateRecipe(ingredients, selectedCuisine, dietaryPreferences, selectedMealType, selectedServingSize);
-      console.log('API Response:', data);
-    
-      router.push(`/result?data=${encodeURIComponent(JSON.stringify(data))}`);
+
+      // store generated recipes in backend
+      const response = await fetch('http://localhost:5000/api/server/generated-recipes', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ recipes: data })
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      router.push('/result');
     } catch (error) {
-      console.error('Error fetching the recipe:', error);
+      console.error('Error fetching or storing the recipe:', error);
     } finally {
       setLoading(false);
     }
   };
+
 
   const handleKeyDown = (e) => {
     if (e.key === 'Enter') {

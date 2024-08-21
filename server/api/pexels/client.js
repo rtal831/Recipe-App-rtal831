@@ -17,6 +17,8 @@ const getImageByTitle = async (imageName) => {
             }
         });
 
+        console.log('Pexels API Response:', response.data);
+
         if (response.data && response.data.photos && response.data.photos.length > 0) {
             return response.data.photos[0].src.original; // Returning the first image's URL
         } else {
