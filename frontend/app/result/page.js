@@ -68,6 +68,7 @@ export default function App() {
             });
 
             if (!updateResponse.ok) {
+                console.log(error);
                 throw new Error(`Error updating recipe image: ${updateResponse.statusText}`);
             }
 
