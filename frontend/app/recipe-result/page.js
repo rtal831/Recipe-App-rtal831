@@ -27,7 +27,7 @@ export default function RecipePage() {
 
                     // Remove quotes from the recipeImage field
                     if (recipeData.recipeImage) {
-                        recipeData.recipeImage = recipeData.recipeImage.replace(/^"|"$/g, '');
+                        recipeData.recipeImage = recipeData.recipeImage.replace(/^(["'])|(["'])$/g, '');
                     }
 
                     setRecipe(recipeData);
