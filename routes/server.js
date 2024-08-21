@@ -57,23 +57,18 @@ router.get('/generated-recipes/:resultId', (req, res) => {
 router.put('/update-image/:id/:recipeImage', (req, res) => {
     const { id, recipeImage } = req.params;
 
-    // Decode the URL-encoded recipeImage
     const decodedRecipeImage = decodeURIComponent(recipeImage);
 
-    // Convert id to an integer
     const recipeId = parseInt(id, 10);
 
     if (isNaN(recipeId)) {
         return res.status(400).json({ error: 'Invalid recipe ID' });
     }
 
-    // Find the recipe by its id
     const recipeIndex = generated_recipes.findIndex(r => r['result-id'] === recipeId);
 
     if (recipeIndex !== -1) {
-        // Update the recipe image
         generated_recipes[recipeIndex].recipeImage = decodedRecipeImage;
-
         return res.status(200).json({ message: 'Recipe image updated successfully', recipe: generated_recipes[recipeIndex] });
     } else {
         return res.status(400).json({ error: 'Recipe not found' });

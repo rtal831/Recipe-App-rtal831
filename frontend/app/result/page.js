@@ -13,6 +13,7 @@ import {
 } from "@nextui-org/react";
 import { useRouter } from "next/navigation";
 
+// http://localhost:3000/result
 export default function App() {
     const [recipeData, setRecipeData] = useState([]);
     const router = useRouter();
@@ -38,7 +39,8 @@ export default function App() {
     // send to recipe-result screen
     async function handleViewButtonClick(recipe) {
         try {
-            // Make a POST request to generate the image and get the updated recipe
+
+            // generate image url
             const response = await fetch('http://localhost:5000/api/recipes/generate-image', {
                 method: 'POST',
                 headers: {
@@ -57,6 +59,7 @@ export default function App() {
             const resultId = recipe['result-id'];
             const encodedRecipeImage = encodeURIComponent(recipeImageUrl);
 
+            // send recipeImageUrl to specific recipe in the backend
             const updateResponse = await fetch(`http://localhost:5000/api/server/update-image/${resultId}/${encodedRecipeImage}`, {
                 method: 'PUT',
                 headers: {
@@ -64,13 +67,11 @@ export default function App() {
                 },
             });
 
-
             if (!updateResponse.ok) {
                 throw new Error(`Error updating recipe image: ${updateResponse.statusText}`);
             }
 
             router.push(`/recipe-result?result-id=${resultId}`);
-
         } catch (error) {
             console.error('Error handling view button click:', error);
         }

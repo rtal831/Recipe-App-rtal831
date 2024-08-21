@@ -99,9 +99,10 @@ router.post('/generate-image', async (req, res) => {
             throw new Error('Recipe title is missing');
         }
 
+        // get generated image
         recipe.recipeImage= await getImageByTitle(recipe.title || '/cookie.jpg');
-
         res.json(recipe.recipeImage);
+
     } catch (error) {
         console.error('Error generating recipe image:', error.message);
         res.status(500).json({ error: error.message });
