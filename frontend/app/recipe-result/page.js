@@ -23,6 +23,12 @@ export default function RecipePage() {
                         throw new Error(`Error: ${response.statusText}`);
                     }
                     const recipeData = await response.json();
+
+                    // Remove quotes from the recipeImage field
+                    if (recipeData.recipeImage) {
+                        recipeData.recipeImage = recipeData.recipeImage.replace(/^"|"$/g, '');
+                    }
+
                     setRecipe(recipeData);
                 } catch (error) {
                     console.error("Failed to fetch recipe data:", error);
@@ -45,7 +51,7 @@ export default function RecipePage() {
         <div style={styles.pageContainer}>
             <Card style={styles.recipeContainer}>
                 <div style={styles.leftSide}>
-                    <RecipeImage src='/cookie.jpg' alt="Cookie" />
+                    <RecipeImage src={recipe.recipeImage} alt="Recipe Image" />
                     <Ingredients ingredients={recipe.detailedIngredients} />
                 </div>
                 <div style={styles.rightSide}>
