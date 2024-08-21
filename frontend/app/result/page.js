@@ -34,7 +34,7 @@ export default function App() {
         };
 
         fetchRecipes();
-    });
+    }, []);
 
     // send to recipe-result screen
     async function handleViewButtonClick(recipe) {
