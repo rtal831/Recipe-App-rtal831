@@ -66,6 +66,14 @@ PEXELS_API_KEY=<your-api-key>
 ```
 3. Save your changes and you're good to go!
 
+# Tests
+
+To run tests To run the tests first install new dependencies and then run 'npm test' in the command line at the root of the project. You should see 18 tests passed, as in the image below.
+![test-image](utils/test-image.png)
+
+If you get timeouts on the test, you can increase the specific timeout threshold in the outermost (project root) package.json (30000 ms currently).
+![timeout](utils/timeout.png)
+
 # Usage
 
 You are free to:
