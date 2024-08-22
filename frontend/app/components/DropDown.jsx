@@ -14,6 +14,12 @@ const DropDown = ({ label, options, onSelect }) => {
     }
   };
 
+  const handleKeyDown = (event, option) => {
+    if (event.key === "Enter" || event.key === " ") {
+      handleSelect(option);
+    }
+  };
+
   return (
     <div className="relative">
       <button
@@ -30,7 +36,6 @@ const DropDown = ({ label, options, onSelect }) => {
           <FiChevronDown />
         </motion.span>
       </button>
-
       {open && (
         <motion.ul
           initial={{ opacity: 0, scaleY: 0 }}
@@ -43,7 +48,11 @@ const DropDown = ({ label, options, onSelect }) => {
             <li
               key={idx}
               onClick={() => handleSelect(option)}
+              onKeyDown={(e) => handleKeyDown(e, option)}
+              tabIndex="0"
               className="px-4 py-2 text-sm text-gray-700 cursor-pointer hover:bg-gray-200"
+              role="option"
+              aria-selected={selected === option}
             >
               {option}
             </li>
