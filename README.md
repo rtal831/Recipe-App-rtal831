@@ -31,6 +31,35 @@ data, and integrating with external APIs.
 
 **APIs** - Gemini API is used for retrieving AI generated recipes and Pexels API is used for generating images.
 
+# Setup
+Before using our application, make sure to follow the setup instructions below:
+
+## API Setup
+
+As explained, this application uses Gemini and Pexels to generate recipes and images. Below is an explanation if the setup needed to use these endpoints.
+
+### Gemini
+First you will need to setup an account with Google Gemini - you can do so [here](https://gemini.google.com/app)
+
+1. Generate an [API key](https://ai.google.dev/gemini-api/docs/api-key) for Google Gemini
+
+2. Under `server/config.env`replace the following field with your newly generated API key:
+```
+GEMINI_API_KEY=<your-api-key>
+```
+3. Save your changes and you're good to go!
+
+### Pexels
+First, you will need to set up an account with Pexels, you can do so [here](https://www.pexels.com/upload/)
+
+1. Generate an [API Key](https://www.pexels.com/api/) for Pexels
+
+2. Under `server/config.env`replace the following field with your newly generated API key:
+```
+PEXELS_API_KEY=<your-api-key>
+```
+3. Save your changes and you're good to go!
+
 # Usage
 
 You are free to:
