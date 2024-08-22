@@ -2,10 +2,22 @@
   "dependencies": {
     "@google/generative-ai": "^0.17.0",
     "@nextui-org/react": "^2.4.6",
+    "@types/chai": "^4.3.17",
+    "axios-mock-adapter": "^2.0.0",
     "body-parser": "^1.20.2",
     "dotenv": "^16.4.5",
+    "esm": "^3.2.25",
     "express": "^4.19.2",
     "mongodb": "3.0",
-    "mongoose": "^8.5.2"
+    "mongoose": "^8.5.2",
+    "sinon": "^18.0.0"
+  },
+  "devDependencies": {
+    "chai": "^5.1.1",
+    "chai-http": "^5.0.0",
+    "mocha": "^10.7.3"
+  },
+  "scripts": {
+    "test": "mocha --timeout 30000 -r esm"
   }
 }

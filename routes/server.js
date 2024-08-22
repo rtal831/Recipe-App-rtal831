@@ -15,6 +15,11 @@ router.post('/generated-recipes', (req, res) => {
     }
 });
 
+// Endpoint to check if the server is running
+router.get('/', (req, res) => {
+    res.status(200).send('Server is running');
+});
+
 // Endpoint to see generated recipes
 router.get('/generated-recipes', (req, res) => {
     res.json({ generatedRecipes: generated_recipes });

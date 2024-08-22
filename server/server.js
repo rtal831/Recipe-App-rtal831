@@ -3,7 +3,7 @@ const bodyParser = require('body-parser');
 const dotenv = require('dotenv');
 const cors = require('cors');
 const recipeRoutes = require('../routes/recipes');
-const serverRoutes = require('../routes/server'); // Import the new routes file
+const serverRoutes = require('../routes/server');
 const connectDB = require('./db');
 
 const app = express();
