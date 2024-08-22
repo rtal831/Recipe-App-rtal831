@@ -53,4 +53,26 @@ router.get('/generated-recipes/:resultId', (req, res) => {
     }
 });
 
+// Endpoint to update recipe image
+router.put('/update-image/:id/:recipeImage', (req, res) => {
+    const { id, recipeImage } = req.params;
+
+    const decodedRecipeImage = decodeURIComponent(recipeImage);
+
+    const recipeId = parseInt(id, 10);
+
+    if (isNaN(recipeId)) {
+        return res.status(400).json({ error: 'Invalid recipe ID' });
+    }
+
+    const recipeIndex = generated_recipes.findIndex(r => r['result-id'] === recipeId);
+
+    if (recipeIndex !== -1) {
+        generated_recipes[recipeIndex].recipeImage = decodedRecipeImage;
+        return res.status(200).json({ message: 'Recipe image updated successfully', recipe: generated_recipes[recipeIndex] });
+    } else {
+        return res.status(400).json({ error: 'Recipe not found' });
+    }
+});
+
 module.exports = router;

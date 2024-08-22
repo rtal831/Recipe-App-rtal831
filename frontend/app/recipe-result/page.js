@@ -8,14 +8,15 @@ import RecipeHeader from './RecipeHeader';
 import RecipeInstructions from './RecipeInstructions';
 import { useRouter, useSearchParams } from 'next/navigation';
 
+// http:localhost:3000/recipe-result
 export default function RecipePage() {
     const [recipe, setRecipe] = useState(null);
     const searchParams = useSearchParams();
 
+    // get specific recipe from backend
     useEffect(() => {
         const resultId = searchParams.get('result-id');
         if (resultId) {
-            // Fetch the recipe by result-id
             const fetchRecipe = async () => {
                 try {
                     const response = await fetch(`http://localhost:5000/api/server/generated-recipes/${resultId}`);
@@ -23,6 +24,12 @@ export default function RecipePage() {
                         throw new Error(`Error: ${response.statusText}`);
                     }
                     const recipeData = await response.json();
+
+                    // Remove quotes from the recipeImage field
+                    if (recipeData.recipeImage) {
+                        recipeData.recipeImage = recipeData.recipeImage.replace(/^["'](.+)["']$/g, '$1');
+                    }
+
                     setRecipe(recipeData);
                 } catch (error) {
                     console.error("Failed to fetch recipe data:", error);
@@ -45,7 +52,7 @@ export default function RecipePage() {
         <div style={styles.pageContainer}>
             <Card style={styles.recipeContainer}>
                 <div style={styles.leftSide}>
-                    <RecipeImage src='/cookie.jpg' alt="Cookie" />
+                    <RecipeImage src={recipe.recipeImage} alt="Recipe Image" />
                     <Ingredients ingredients={recipe.detailedIngredients} />
                 </div>
                 <div style={styles.rightSide}>

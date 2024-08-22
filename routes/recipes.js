@@ -81,8 +81,8 @@ router.patch('/:id', (req, res) => {
 })
 
 // generating image using Pexels API (TRIED BUT NOT WORKING)
-/*router.post('/generate-image', async (req, res) => {
-    const { title, ingredients, detailedIngredients, cookingTime, instructions, recipeImage, tags } = req.body;
+router.post('/generate-image', async (req, res) => {
+    const { title, ingredients, detailedIngredients, cookingTime, instructions, recipeImage, tags, resultId } = req.body;
 
     const recipe = {
         title: title,
@@ -91,20 +91,23 @@ router.patch('/:id', (req, res) => {
         cookingTime: cookingTime,
         instructions: instructions,
         recipeImage: recipeImage,
-        tags: tags
+        tags: tags,
+        resultId : resultId
     }
     try {
         if (!title) {
             throw new Error('Recipe title is missing');
         }
-        recipe.recipeImage= await getImageByTitle(recipe.title || '/cookie.jpg');
 
-        res.json(recipe);
+        // get generated image
+        recipe.recipeImage= await getImageByTitle(recipe.title || '/cookie.jpg');
+        res.json(recipe.recipeImage);
+
     } catch (error) {
         console.error('Error generating recipe image:', error.message);
         res.status(500).json({ error: error.message });
     }
-});*/
+});
 
 router.post('/generate-recipes', async (req, res) => {
     const { ingredients, cuisine, dietaryPreferences, mealType, servings } = req.body;

@@ -2,6 +2,8 @@ import React from 'react';
 import { CardBody } from "@nextui-org/react";
 
 export default function RecipeInstructions({ instructions, cookingTime }) {
+    const instructionList = Array.isArray(instructions) ? instructions : [];
+
     return (
         <CardBody className="p-4">
             <div className="flex items-center mb-2">
@@ -10,7 +12,7 @@ export default function RecipeInstructions({ instructions, cookingTime }) {
             </div>
             <div className="overflow-auto max-h-[calc(100%_-_40px)]">
                 <ol className="list-decimal pl-4 font-serif">
-                    {instructions.map((instruction, index) => (
+                    {instructionList.map((instruction, index) => (
                         <li key={index} className="mb-1">
                             {instruction}
                         </li>

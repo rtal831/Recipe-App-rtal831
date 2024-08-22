@@ -13,6 +13,7 @@ import {
 } from "@nextui-org/react";
 import { useRouter } from "next/navigation";
 
+// http://localhost:3000/result
 export default function App() {
     const [recipeData, setRecipeData] = useState([]);
     const router = useRouter();
@@ -33,18 +34,48 @@ export default function App() {
         };
 
         fetchRecipes();
-    });
+    }, []);
 
     // send to recipe-result screen
     async function handleViewButtonClick(recipe) {
-        if (recipe['result-id'] === null || recipe['result-id'] === undefined) {
-            console.error('Recipe does not have a result-id');
-            return;
-        }
+        try {
 
-        // add resultId as query param
-        const resultId = recipe['result-id'];
-        router.push(`/recipe-result?result-id=${resultId}`);
+            // generate image url
+            const response = await fetch('http://localhost:5000/api/recipes/generate-image', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(recipe),
+            });
+
+            if (!response.ok) {
+                throw new Error(`Error: ${response.statusText}`);
+            }
+
+            // Get the generated recipeImageUrl
+            const recipeImageUrl = await response.text()
+
+            const resultId = recipe['result-id'];
+            const encodedRecipeImage = encodeURIComponent(recipeImageUrl);
+
+            // send recipeImageUrl to specific recipe in the backend
+            const updateResponse = await fetch(`http://localhost:5000/api/server/update-image/${resultId}/${encodedRecipeImage}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+
+            if (!updateResponse.ok) {
+                console.log(error);
+                throw new Error(`Error updating recipe image: ${updateResponse.statusText}`);
+            }
+
+            router.push(`/recipe-result?result-id=${resultId}`);
+        } catch (error) {
+            console.error('Error handling view button click:', error);
+        }
     }
 
     const renderCell = React.useCallback(
