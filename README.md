@@ -34,6 +34,12 @@ data, and integrating with external APIs.
 # Setup
 Before using our application, make sure to follow the setup instructions below:
 
+## Database Setup
+The following field will need to be replaced by the applications database secret:`mongodb+srv://softeng310Admin:codeWarriors@recipe-app.ks9m0.mongodb.net/?retryWrites=true&w=majority&appName=Recipe-App` under `server/config.env`:
+```
+MONGO_URI=<mongoDB-uri>
+```
+
 ## API Setup
 
 As explained, this application uses Gemini and Pexels to generate recipes and images. Below is an explanation if the setup needed to use these endpoints.

@@ -3,5 +3,5 @@ package-lock.json
 
 ./frontend/node_modules
 ./frontend/package-lock.json
-./server/config.env
+
 .vscode
