@@ -1,6 +1,6 @@
 {
   "dependencies": {
-    "@google/generative-ai": "^0.17.0",
+    "@google/generative-ai": "^0.18.0",
     "@nextui-org/react": "^2.4.6",
     "@types/chai": "^4.3.17",
     "axios-mock-adapter": "^2.0.0",
