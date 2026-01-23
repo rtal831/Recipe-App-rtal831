@@ -10,7 +10,7 @@
     "express": "^4.19.2",
     "mongodb": "3.0",
     "mongoose": "^8.5.2",
-    "sinon": "^18.0.0"
+    "sinon": "^21.0.1"
   },
   "devDependencies": {
     "chai": "^5.1.1",
